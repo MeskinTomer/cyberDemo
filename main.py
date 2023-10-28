@@ -101,6 +101,21 @@ def read_from_file():
     return msg
 
 
+def encrypt(user_msg):
+    """
+    encrypts the message that is given by the user
+    :param user_msg: the message that is written by the user
+    :type param user_msg: string
+    :return: the message encrypted
+    :rtype: string
+    """
+    encrypted_message_list = []
+    for character in user_msg:
+        if character in ENCRYPTION_TABLE.keys():
+            encrypted_message_list.append(ENCRYPTION_TABLE[character])
+    return ','.join(encrypted_message_list)
+
+
 def main():
 
 
