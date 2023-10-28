@@ -135,7 +135,32 @@ def decrypt():
         return ""
 
 
+def validate(user_msg):
+    for char in user_msg:
+        if char not in ENCRYPTION_TABLE.keys():
+            return False
+    return True
+
+
 def main():
+    """
+    main function
+    """
+    sys.argv[0] = 'python'
+
+    if sys.argv[1] == "encrypt":
+        user_message = input('please enter a letter to encrypt please: ')
+        if validate(user_message):
+            encrypted_message = encrypt(user_message)
+            if len(user_message) != 0:
+                write_to_file(FILE_PATH, encrypted_message)
+            else:
+                open(FILE_PATH, 'w').close()
+        else:
+            print("Error, invalid message")
+
+    elif sys.argv[1] == "decrypt":
+        print(decrypt())
 
 
 if __name__ == '__main__':
