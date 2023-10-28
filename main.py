@@ -9,7 +9,7 @@ file and prints it onto the screen
 
 import sys
 
-FILE_PATH = r"C:\Users\tomer\Desktop\Python_Projects\encrypted_msg.txt"
+FILE_PATH = r"C:\Users\tomer\Desktop\Python_Projects\cyberDemo\encrypted_message.txt"
 ENCRYPTION_TABLE = {
     'A': '56',
     'B': '57',
