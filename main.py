@@ -116,6 +116,25 @@ def encrypt(user_msg):
     return ','.join(encrypted_message_list)
 
 
+def decrypt():
+    """
+    decrypts the encrypted message written in the file
+    :return: the message decrypted
+    :rtypte: string
+    """
+    key_list = list(ENCRYPTION_TABLE.keys())
+    val_list = list(ENCRYPTION_TABLE.values())
+    decrypted_message = read_from_file()
+    if len(decrypted_message) != 0:
+        message_list = decrypted_message.strip().split(',')
+        new_list = []
+        for num in message_list:
+            new_list.append(key_list[val_list.index(num)])
+        return ''.join(new_list)
+    else:
+        return ""
+
+
 def main():
 
 
