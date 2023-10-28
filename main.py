@@ -73,6 +73,34 @@ ENCRYPTION_TABLE = {
     ':': '105'
 }
 
+
+def write_to_file(FILE_PATH, encrypted_msg):
+    """
+    writes to file the encrypted message, then closes it
+    :param FILE_PATH: the file path
+    :type param FILE_PATH: string
+    :param encrypted_msg:
+    :type param encrypted_msg: string
+    :return: None
+    """
+
+    text_file = open(FILE_PATH, 'w')
+    text_file.write(encrypted_msg)
+    text_file.close()
+
+
+def read_from_file():
+    """
+    reads the file and then closes it
+    :return: returns the message in the file
+    :rtype: string
+    """
+    text_file = open(FILE_PATH, "r")
+    msg = text_file.read()
+    text_file.close()
+    return msg
+
+
 def main():
 
 
