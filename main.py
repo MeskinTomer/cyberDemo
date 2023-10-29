@@ -8,6 +8,9 @@ file and prints it onto the screen
 """
 
 import sys
+import logging
+
+logging.basicConfig(filename='my_log.log', level=logging.DEBUG)
 
 FILE_PATH = r"C:\Users\tomer\Desktop\Python_Projects\cyberDemo\encrypted_message.txt"
 ENCRYPTION_TABLE = {
@@ -84,9 +87,12 @@ def write_to_file(FILE_PATH, encrypted_msg):
     :return: None
     """
 
-    text_file = open(FILE_PATH, 'w')
-    text_file.write(encrypted_msg)
-    text_file.close()
+    try:
+        text_file = open(FILE_PATH, 'w')
+        text_file.write(encrypted_msg)
+        text_file.close()
+    except FileNotFoundError:
+        logging.debug("file doesn't exist")
 
 
 def read_from_file():
@@ -95,10 +101,18 @@ def read_from_file():
     :return: returns the message in the file
     :rtype: string
     """
-    text_file = open(FILE_PATH, "r")
-    msg = text_file.read()
-    text_file.close()
-    return msg
+
+    try:
+        text_file = open(FILE_PATH, "r")
+        msg = text_file.read()
+        text_file.close()
+        return msg
+    except FileNotFoundError:
+        logging.debug("file doesn't exist")
+        return None
+    except Exception as err:
+        logging.error("error in reading file" + str(err))
+        return None
 
 
 def encrypt(user_msg):
@@ -113,6 +127,7 @@ def encrypt(user_msg):
     for character in user_msg:
         if character in ENCRYPTION_TABLE.keys():
             encrypted_message_list.append(ENCRYPTION_TABLE[character])
+    logging.debug(user_msg + ' | ' + ','.join(encrypted_message_list) + ' | msg has been encrypted successfully')
     return ','.join(encrypted_message_list)
 
 
@@ -130,8 +145,10 @@ def decrypt():
         new_list = []
         for num in message_list:
             new_list.append(key_list[val_list.index(num)])
+        logging.debug(decrypted_message + ' | ' + ''.join(new_list) + ' | msg has been encrypted successfully')
         return ''.join(new_list)
     else:
+        logging.debug('Empty msg has been encrypted successfully')
         return ""
 
 
@@ -164,4 +181,6 @@ def main():
 
 
 if __name__ == '__main__':
+    assert encrypt("I love you.") == '44,98,33,36,93,16,98,96,36,92,100'
+    assert decrypt('33,16,91,102,90,98,34,16,16,91,98,12,91,98,35,36,36,35') == "let‘s meet at noon"
     main()
